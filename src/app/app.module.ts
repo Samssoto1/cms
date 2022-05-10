@@ -10,10 +10,12 @@ import { ContactItemComponent } from './contacts/contact-item/contact-item.compo
 import { DocumentsComponent } from './documents/documents.component';
 import { DocumentListComponent } from './documents/document-list/document-list.component';
 import { DocumentDetailComponent } from './documents/document-detail/document-detail.component';
+import { DocumentItemComponent } from './documents/document-item/document-item.component';
 import { MessageComponent } from './messages/messages.component';
 import { MessageListComponent } from './messages/message-list/message-list.component';
 import { MessageItemComponent } from './messages/message-item/message-item.component';
 import { MessageEditComponent } from './messages/message-edit/message-edit.component';
+import { DropdownDirective } from './directives/dropdown.directive';
 
 @NgModule({
   declarations: [
@@ -26,10 +28,12 @@ import { MessageEditComponent } from './messages/message-edit/message-edit.compo
     DocumentsComponent,
     DocumentListComponent,
     DocumentDetailComponent,
+    DocumentItemComponent,
     MessageComponent,
     MessageListComponent,
     MessageItemComponent,
-    MessageEditComponent
+    MessageEditComponent,
+    DropdownDirective
   ],
   imports: [
     BrowserModule
