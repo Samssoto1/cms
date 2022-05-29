@@ -10,6 +10,8 @@ export class ContactService {
 
   contactSelectedEvent = new EventEmitter<Contact>();
 
+  contactChangedEvent = new EventEmitter<Contact[]>();
+
   constructor() {
     this.contacts = MOCKCONTACTS;
   }
@@ -26,6 +28,18 @@ export class ContactService {
     //     return contact.id === id;
     // });
 }
+
+  deleteContact(contact: Contact){
+  if (!contact) {
+     return;
+  }
+  const pos = this.contacts.indexOf(contact);
+  if (pos < 0) { // . If the index is negative, the document was not found and the method is aborted.
+     return;
+  }
+  this.contacts.splice(pos, 1);
+  this.contactChangedEvent.emit(this.contacts.slice());
+  }
 
 
 }

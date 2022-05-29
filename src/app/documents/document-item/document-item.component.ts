@@ -9,6 +9,7 @@ import { Document } from '../documents.model';
 export class DocumentItemComponent implements OnInit {
   @Input() document: Document;
 
+
   constructor() { }
 
   ngOnInit(): void {
