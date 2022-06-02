@@ -43,7 +43,8 @@ export class ContactService {
      return;
   }
   this.contacts.splice(pos, 1);
-  this.contactChangedEvent.emit(this.contacts.slice());
+  // this.contactChangedEvent.emit(this.contacts.slice());
+  this.contactListChangedEvent.next(this.contacts.slice())
   }
 
 

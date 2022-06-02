@@ -45,7 +45,8 @@ deleteDocument(document: Document) {
      return;
   }
   this.documents.splice(pos, 1);
-  this.documentChangedEvent.emit(this.documents.slice());
+  // this.documentChangedEvent.emit(this.documents.slice());
+  this.documentListChangedEvent.next(this.documents.slice())
 }
 
 addDocument(newDocument: Document) {
