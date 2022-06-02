@@ -1,12 +1,15 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Contact } from './contact.model';
 import { MOCKCONTACTS } from './MOCKCONTACTS';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContactService {
   contacts: Contact[] = [];
+
+  contactListChangedEvent = new Subject<Contact[]>();
 
   contactSelectedEvent = new EventEmitter<Contact>();
 
@@ -22,6 +25,8 @@ export class ContactService {
   }
 
   getContact(id: string): Contact {
+    console.log('here')
+    console.log(this.contacts.find((contact) => contact.id === id))
     return this.contacts.find((contact) => contact.id === id);
     // return this.contacts.find(contact => {
     //     console.log(contact.id)
