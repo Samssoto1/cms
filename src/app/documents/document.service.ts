@@ -62,8 +62,17 @@ addDocument(newDocument: Document) {
 }
 
 updateDocument(originalDocument: Document, newDocument: Document) {
-  if (!originalDocument || !newDocument)
-      return
+  console.log(originalDocument)
+  console.log(newDocument)
+  // if (!originalDocument || !newDocument)
+
+  if (originalDocument == null || originalDocument == undefined || newDocument == null || newDocument == undefined)
+  {
+    console.log('stuck here?')
+    return
+  }    
+
+  console.log('qwer')
 
   let pos = this.documents.indexOf(originalDocument)
   if(pos < 0){

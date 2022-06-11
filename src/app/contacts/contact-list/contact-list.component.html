@@ -12,7 +12,7 @@
     <div class="panel-body">
       <div class="row">
         <div class="col-xs-12 margin-top">
-          <cms-contact-item *ngFor="let contactElement of contacts" [contact]="contactElement"></cms-contact-item>
+          <cms-contact-item *ngFor="let contactElement of contacts" [contact]="contactElement" dnd-draggable [dragEnabled]="true" [dragData]="contactElement" [dropZones]="['contactGroup']"></cms-contact-item>
         </div>
       </div>
     </div>
