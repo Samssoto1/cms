@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output, OnDestroy} from '@angular/core';
+import { Component, OnInit, OnDestroy} from '@angular/core';
 import { Document } from '../documents.model';
 import { DocumentService } from '../document.service';
 import { Subscription } from 'rxjs';
@@ -13,7 +13,7 @@ export class DocumentListComponent implements OnInit, OnDestroy {
 
 // Create a new EventEmitter object at the top of the class of the Document data type and assign it to a class output variable named selectedDocumentEvent.
 
-
+  
   documents: Document[] = []
 
   subscription: Subscription;
@@ -27,16 +27,10 @@ export class DocumentListComponent implements OnInit, OnDestroy {
     this.subscription = this.documentService.documentListChangedEvent.subscribe( (documentsList: Document[]) => {
       this.documents = documentsList;
     })
-    
-    this.documents = this.documentService.getDocuments();
-    // this.documents = this.documentService.getDocuments();
-    
 
-    // this.documentService.documentChangedEvent.subscribe(
-    //   (documents: Document[]) => {
-    //     this.documents = documents;
-    //   }
-    // )
+    this.documentService.getDocuments();
+    console.log('here')
+
   }
   
   ngOnDestroy(){
