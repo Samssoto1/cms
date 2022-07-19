@@ -8,7 +8,6 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class MessageService {
-
   messageChangedEvent = new EventEmitter<Message[]>();
   messages: Message[];
   maxMessageId: number; 
@@ -20,10 +19,10 @@ export class MessageService {
   getMessages(){
     //  return the list of contacts
     this.httpClient
-    .get('https://wdd430-38a0d-default-rtdb.firebaseio.com/messages.json')
+    .get('http://localhost:3000/messages')
     .subscribe(
-       (contacts: Message[]) => { 
-        this.messages = contacts;
+    (contacts: Message[]) => { 
+        this.messages = contacts['returnMessages'];
         this.maxMessageId = this.getMaxId();
         //sort documents
         this.messages.sort((a, b) =>
@@ -73,14 +72,38 @@ export class MessageService {
     });
 }
 
-  addMessage(message: Message){
-    if (!message){
-      return;
-    }
+//   addMessage(message: Message){
+//     if (!message){
+//       return;
+//     }
 
-    this.maxMessageId++;
-    message.id = this.maxMessageId.toString();
-    this.messages.push(message);
-    this.storeMessages();
+//     this.maxMessageId++;
+//     message.id = this.maxMessageId.toString();
+//     this.messages.push(message);
+//     this.storeMessages();
+//   }
+// }
+
+addMessage(message: Message) {
+  if (!message) {
+    return;
   }
+
+  // make sure id of the new Document is empty
+  message.id = '';
+
+  const headers = new HttpHeaders({'Content-Type': 'application/json'});
+
+  // add to database
+  this.httpClient.post<{ msg: string, message: Message }>('http://localhost:3000/messages',
+    document,
+    { headers: headers })
+    .subscribe(
+      (responseData) => {
+        // add new document to messages
+        this.messages.push(responseData.message);
+        this.messageChangedEvent.next(this.messages.slice());
+      }
+    );
+}
 }

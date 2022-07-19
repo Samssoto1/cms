@@ -2,6 +2,7 @@
 var express = require('express');
 var path = require('path');
 var http = require('http');
+var mongoose = require('mongoose');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
@@ -48,6 +49,19 @@ app.use('/', index);
 app.use('/messages', messageRoutes);
 app.use('/contacts', contactRoutes);
 app.use('/documents', documentsRoutes);
+
+
+// establish a connection to the mongo database
+mongoose.connect('mongodb://localhost:27017/cms',
+{ useNewUrlParser: true }, (err, res) => {
+      if (err) {
+console.log('Connection failed: ' + err);
+      }
+      else {
+console.log('Connected to database!');
+      }
+}
+);
 
 // ... ADD YOUR CODE TO MAP YOUR URL'S TO ROUTING FILES HERE ...
 

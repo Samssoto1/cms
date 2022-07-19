@@ -1,23 +1,27 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Contact } from '../contact.model';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ContactService } from '../contact.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'cms-contact-detail',
   templateUrl: './contact-detail.component.html',
   styleUrls: ['./contact-detail.component.css']
 })
-export class ContactDetailComponent implements OnInit {
+export class ContactDetailComponent implements OnInit, OnDestroy {
   @Input() contact: Contact;
   id: string;
+  sub: Subscription
 
   constructor(private contactService: ContactService, private router: Router, private activeRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.activeRoute.params.subscribe((params: Params) => {
       this.id = params['id'];
-      this.contact = this.contactService.getContact(this.id);
+      this.sub = this.contactService.getContact(this.id).subscribe((contactData)=>{
+        this.contact = contactData.contact;
+      });
     })
   }
 
@@ -25,6 +29,10 @@ export class ContactDetailComponent implements OnInit {
     this.contactService.deleteContact(this.contact);
     this.router.navigateByUrl("/contacts")
     // this.router.navigate(['/contacts'], {relativeTo:this.activeRoute})
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 
 }
